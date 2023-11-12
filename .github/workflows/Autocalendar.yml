@@ -1,0 +1,26 @@
+name: R Workflow
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  run_rscript:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v1
+
+    - name: Install dependencies
+      run: |
+        R -e 'install.packages(c("httr", "gargle", "googleAuthR", "jsonlite", "knitr", "dplyr", "huxtable", "tidyverse", "httr2", "rmarkdown", "csodata", "xts", "calendar", "DescTools", "splitstackshape", "pdftools", "rvest", "lubridate"), repos="http://cran.rstudio.com/")'
+
+    - name: Run R script
+      run: Rscript.R
