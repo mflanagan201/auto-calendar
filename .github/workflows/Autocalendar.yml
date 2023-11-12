@@ -1,3 +1,6 @@
+
+
+
 name: R Workflow
 
 on:
@@ -8,8 +11,8 @@ on:
     - cron: '30 17 * * *'  # Adjusted to run at 17:30 UTC
 
 jobs:
-  run_rscript:
-    runs-on: ubuntu-latest
+  build-windows:
+    runs-on: windows-latest
 
     env:
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -22,6 +25,8 @@ jobs:
 
     - name: Set up R
       uses: r-lib/actions/setup-r@v1
+      with:
+        r-version: 4.3.2
 
     - name: Install dependencies
       run: |
