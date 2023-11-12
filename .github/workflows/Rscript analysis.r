@@ -25,6 +25,10 @@ library(pdftools)
 library(rvest)
 library(lubridate)
 
+google_client_id <- Sys.getenv("GOOGLE_CLIENT_ID")
+google_client_secret <- Sys.getenv("GOOGLE_CLIENT_SECRET")
+google_calendar_id <- Sys.getenv("GOOGLE_CALENDAR_ID")
+
 #Eurostat Calendar Below
 url <- "https://ec.europa.eu/eurostat/cache/RELEASE_CALENDAR/calendar_EN.ics"
 response <- GET(url)
@@ -335,6 +339,14 @@ CALENDAR_ALL_short[nrow(CALENDAR_ALL_short),3]<-paste(Sys.Date())
 
 google_app <- httr::oauth_app(
   "THIS_IS_A_NAME",
+  key = google_client_id,
+  secret = google_client_secret
+)
+
+
+
+google_app <- httr::oauth_app(
+  "THIS_IS_A_NAME",
   key = "500583945095-psku68b6caon0uug08f3iuihm3umrnqe.apps.googleusercontent.com",
   secret = "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"
   
@@ -346,15 +358,12 @@ G_ENDPOINT<-oauth_endpoint(authorize="https://accounts.google.com/o/oauth2/auth"
                            access="https://accounts.google.com/o/oauth2/token")
 
 
-#oauth_2<-oauth2.0_token(G_ENDPOINT,google_app, scope=c(
-#  "https://www.googleapis.com/auth/calendar",
-#  "https://www.googleapis.com/auth/calendar.events"
-#))
+oauth_2<-oauth2.0_token(G_ENDPOINT,google_app, scope=c(
+  "https://www.googleapis.com/auth/calendar",
+  "https://www.googleapis.com/auth/calendar.events"
+))
 
-setwd("C:/Users/flanagam/Documents/")
-oauth_2 <- readRDS("C:/Users/flanagam/Documents/credentials_file_1.json")
 oauth_2$refresh()
-saveRDS(oauth_2, "C:/Users/flanagam/Documents/credentials_file_1.json")
 
 calendar_url <- "https://www.googleapis.com/calendar/v3/calendars/9b1e48819517c85b915328ee7dfb7f8ef4c08ddf55af4c22a9e5688fc50adff8@group.calendar.google.com/events"
 
