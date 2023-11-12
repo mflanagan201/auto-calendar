@@ -27,7 +27,6 @@ library(lubridate)
 
 google_client_id <- Sys.getenv("GOOGLE_CLIENT_ID")
 google_client_secret <- Sys.getenv("GOOGLE_CLIENT_SECRET")
-google_calendar_id <- Sys.getenv("GOOGLE_CALENDAR_ID")
 
 #Eurostat Calendar Below
 url <- "https://ec.europa.eu/eurostat/cache/RELEASE_CALENDAR/calendar_EN.ics"
