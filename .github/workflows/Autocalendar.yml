@@ -5,11 +5,16 @@ on:
     branches:
       - main
   schedule:
-    - cron: '30 17 * * *'
+    - cron: '30 17 * * *'  # Adjusted to run at 17:30 UTC
 
 jobs:
   run_rscript:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
+    env:
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_CALENDAR_ID }}
 
     steps:
     - name: Checkout repository
@@ -17,13 +22,18 @@ jobs:
 
     - name: Set up R
       uses: r-lib/actions/setup-r@v1
-      with:
-        r-version: '4.1.0'  # Specify a supported version of R
-
 
     - name: Install dependencies
       run: |
         R -e 'install.packages(c("httr", "gargle", "googleAuthR", "jsonlite", "knitr", "dplyr", "huxtable", "tidyverse", "httr2", "rmarkdown", "csodata", "xts", "calendar", "DescTools", "splitstackshape", "pdftools", "rvest", "lubridate"), repos="http://cran.rstudio.com/")'
 
     - name: Run R script
-      run: ACCESS_GCALENDAR_V5.R
+      run: Rscript analysis.R
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "mflanagan202@gmail.com"
+        git config --local user.name "mflanagan201"
+        git add .
+        git commit -m "Update Google Calendar events [skip ci]"
+        git push
