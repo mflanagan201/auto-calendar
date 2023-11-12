@@ -28,9 +28,9 @@ jobs:
       with:
         r-version: 4.3.2
 
-    - name: Install dependencies
+    - name: Install R packages
       run: |
-        R -e "install.packages(c("httr", "gargle", "googleAuthR", "jsonlite", "knitr", "dplyr", "huxtable", "tidyverse", "httr2", "rmarkdown", "csodata", "xts", "calendar", "DescTools", "splitstackshape", "pdftools", "rvest", "lubridate"),dependencies=TRUE)"
+        R -e "install.packages(c('gargle', 'googleAuthR', 'jsonlite', 'knitr', 'dplyr', 'blastula', 'Microsoft365R', 'huxtable', 'tidyverse', 'httr2', 'emayili', 'rmarkdown', 'csodata', 'xts', 'calendar', 'DescTools', 'httr', 'huxtable', 'tidyverse', 'httr2', 'splitstackshape', 'pdftools', 'rvest', 'lubridate'), dependencies=TRUE)"
 
     - name: Run R script
       run: Rscript analysis.R
