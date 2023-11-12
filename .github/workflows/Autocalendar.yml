@@ -1,6 +1,3 @@
-
-
-
 name: R Workflow
 
 on:
@@ -11,8 +8,8 @@ on:
     - cron: '30 17 * * *'  # Adjusted to run at 17:30 UTC
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  run_rscript:
+    runs-on: ubuntu-latest
 
     env:
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -25,20 +22,18 @@ jobs:
 
     - name: Set up R
       uses: r-lib/actions/setup-r@v1
-      with:
-        r-version: 4.3.2
 
-    - name: Install R packages
+    - name: Install dependencies
       run: |
-        R -e "install.packages(c('gargle', 'googleAuthR', 'jsonlite', 'knitr', 'dplyr', 'blastula', 'Microsoft365R', 'huxtable', 'tidyverse', 'httr2', 'emayili', 'rmarkdown', 'csodata', 'xts', 'calendar', 'DescTools', 'httr', 'huxtable', 'tidyverse', 'httr2', 'splitstackshape', 'pdftools', 'rvest', 'lubridate'), dependencies=TRUE)"
+        R -e 'install.packages(c("httr", "gargle", "googleAuthR", "jsonlite", "knitr", "dplyr", "huxtable", "tidyverse", "httr2", "rmarkdown", "csodata", "xts", "calendar", "DescTools", "splitstackshape", "pdftools", "rvest", "lubridate"), repos="http://cran.rstudio.com/")'
 
     - name: Run R script
       run: Rscript analysis.R
 
     - name: Commit changes
       run: |
-        git config --local user.email "mflanagan202@gmail.com"
-        git config --local user.name "mflanagan201"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add .
         git commit -m "Update Google Calendar events [skip ci]"
         git push
