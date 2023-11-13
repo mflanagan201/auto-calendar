@@ -31,6 +31,10 @@ jobs:
        ls -R
        echo "Current directory: $(pwd)"
 
+    - name: Make script executable
+      run: chmod +x .github/workflows/Rscript_analysis.r
+
+
     - name: Run R script
       run: Rscript .github/workflows/Rscript_analysis.r
 
