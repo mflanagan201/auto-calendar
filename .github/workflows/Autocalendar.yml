@@ -29,6 +29,7 @@ jobs:
 
     - name: Run R script
       run:  Rscript_analysis.R
+      working-directory: ${{ github.workspace }}
       shell: Rscript {0}
 
 
