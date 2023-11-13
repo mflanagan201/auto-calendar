@@ -28,7 +28,7 @@ jobs:
         R -e 'install.packages(c("httr", "gargle", "googleAuthR", "jsonlite", "knitr", "dplyr", "huxtable", "tidyverse", "httr2", "rmarkdown", "csodata", "xts", "calendar", "DescTools", "splitstackshape", "pdftools", "rvest", "lubridate"), repos="http://cran.rstudio.com/")'
 
     - name: Run R script
-      run: Rscript ".github/workflows/Rscript_analysis.R"
+      run: Rscript "https://github.com/mflanagan201/auto-calendar/blob/f0a44e7c0032cc3467ed53579f85ac26afccf9d8/Rscript_analysis.r"
 
 
     - name: Commit changes
